@@ -1,0 +1,7 @@
+question_id,method,top_doc,hit_score,graph_nodes,graph_edges
+K1,vector_only,E1,1.0,7,6
+K1,kg_assisted,E1,1.0,7,6
+K2,vector_only,E1,0.0,7,6
+K2,kg_assisted,E1,0.0,7,6
+K3,vector_only,E3,1.0,7,6
+K3,kg_assisted,E3,1.0,7,6

@@ -1,0 +1,53 @@
+{
+  "artifacts": [
+    {
+      "path": "config.json",
+      "sha256": "3b384d9ceba356634d30d80aebf8cd1e2bcfba8c4c7deab0d2427aa105361120",
+      "size": 332
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "049551bd72a17c3053e5da0ac5feb2ca10990149905e98c32e5ba783c8460801",
+      "size": 327
+    },
+    {
+      "path": "rankings.csv",
+      "sha256": "7d1906b59610eb39f2f3dea3fc072b321cf454890da09082a851a836c83f7461",
+      "size": 2782
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ae39afc8fc149e68741e367bb9e0bca9ca6127eaa8e544e965fa2331331e3ebb",
+      "size": 270
+    }
+  ],
+  "command": "scripts/run_experiment.py --config configs/bm25.yaml",
+  "configuration": {
+    "dataset_id": "synthetic-ir-v1",
+    "experiment_id": "bm25-mini-001",
+    "experiment_type": "bm25",
+    "fixture": true,
+    "notes": "Miniature BM25 retrieval on synthetic corpus. Educational fixture.",
+    "output_dir": "research/results/bm25-mini-001",
+    "parameters": {
+      "b": 0.75,
+      "k1": 1.2
+    },
+    "seed": 42
+  },
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "end_time": "2026-07-13T13:52:14.073574+00:00",
+  "experiment_id": "bm25-mini-001",
+  "experiment_type": "bm25",
+  "fixture": true,
+  "git_commit": "b829cef9444d37f333d1bc6f5dc594e30a4b8421",
+  "git_dirty": true,
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "schema_version": 1,
+  "seed": 42,
+  "start_time": "2026-07-13T13:52:13.979745+00:00",
+  "success": true
+}

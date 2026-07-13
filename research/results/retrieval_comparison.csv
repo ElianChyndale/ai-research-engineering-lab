@@ -1,0 +1,13 @@
+query_id,method,top_doc,hit_score,retrieval_score
+Q1,keyword,D1,1,1.0
+Q1,vector_like_tfidf,D1,1,0.589884
+Q1,hybrid,D1,1,0.774436
+Q2,keyword,D2,1,1.0
+Q2,vector_like_tfidf,D2,1,0.57735
+Q2,hybrid,D2,1,0.767543
+Q3,keyword,D3,1,0.75
+Q3,vector_like_tfidf,D3,1,0.541182
+Q3,hybrid,D3,1,0.63515
+Q4,keyword,D4,1,1.0
+Q4,vector_like_tfidf,D4,1,0.644773
+Q4,hybrid,D4,1,0.804625

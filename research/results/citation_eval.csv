@@ -1,0 +1,5 @@
+answer_id,expected_doc,citation_doc,citation_supported_score
+Q1,D1,D1,1.0
+Q2,D2,D2,1.0
+Q3,D3,D3,1.0
+Q4,D4,D4,1.0

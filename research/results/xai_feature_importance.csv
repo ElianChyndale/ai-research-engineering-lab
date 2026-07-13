@@ -1,0 +1,7 @@
+feature,importance_score,model_accuracy
+risk_feature_1,0.118182,0.80303
+risk_feature_2,0.081818,0.80303
+risk_feature_3,0.127273,0.80303
+risk_feature_4,0.10303,0.80303
+risk_feature_5,0.030303,0.80303
+risk_feature_6,0.018182,0.80303

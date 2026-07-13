@@ -1,0 +1,14 @@
+{
+  "b": 0.75,
+  "k1": 1.2,
+  "limitations": [
+    "Synthetic corpus only",
+    "Simple whitespace tokenizer",
+    "No stemming or stop-word removal",
+    "Single seed \u2014 no variance estimate"
+  ],
+  "max_score": 3.4380226808045085,
+  "mean_score": 0.34992574956004946,
+  "n_documents": 8,
+  "n_queries": 4
+}

@@ -1,0 +1,56 @@
+{
+  "artifacts": [
+    {
+      "path": "config.json",
+      "sha256": "7356d00804b9e238b247ee4179634ddbf342f60ff0d76fb908d1bd71076a848a",
+      "size": 449
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "9b539c18b9d78c0ece73a559d28025c5daf2f4f91e849f751d4fa748e559ca1b",
+      "size": 308
+    },
+    {
+      "path": "predictions.csv",
+      "sha256": "f6e07df3f64cddce028ab92547de698ba844d16419c0b6820b6d054184a78737",
+      "size": 11749
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ae39afc8fc149e68741e367bb9e0bca9ca6127eaa8e544e965fa2331331e3ebb",
+      "size": 270
+    }
+  ],
+  "command": "scripts/run_experiment.py --config configs/linear_regression.yaml",
+  "configuration": {
+    "dataset_id": "synthetic-linear-v1",
+    "experiment_id": "lr-synthetic-001",
+    "experiment_type": "linear_regression",
+    "fixture": true,
+    "notes": "Synthetic linear regression with known coefficients. Educational fixture.",
+    "output_dir": "research/results/lr-synthetic-001",
+    "parameters": {
+      "learning_rate": 0.01,
+      "max_iter": 5000,
+      "n_features": 3,
+      "n_samples": 100,
+      "noise_std": 0.5
+    },
+    "seed": 42
+  },
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "end_time": "2026-07-13T13:52:12.701036+00:00",
+  "experiment_id": "lr-synthetic-001",
+  "experiment_type": "linear_regression",
+  "fixture": true,
+  "git_commit": "b829cef9444d37f333d1bc6f5dc594e30a4b8421",
+  "git_dirty": true,
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "schema_version": 1,
+  "seed": 42,
+  "start_time": "2026-07-13T13:52:12.598116+00:00",
+  "success": true
+}

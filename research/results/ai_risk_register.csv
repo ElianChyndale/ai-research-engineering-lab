@@ -1,0 +1,3 @@
+risk_id,risk,mitigation,severity_score
+R1,Synthetic data overstates readiness,Label outputs as local benchmark results,0.7
+R2,Feature importance misread as causality,Report it as model sensitivity only,0.6

@@ -1,0 +1,16 @@
+{
+  "dataset_id": "synthetic-linear-v1",
+  "experiment_id": "lr-synthetic-001",
+  "experiment_type": "linear_regression",
+  "fixture": true,
+  "notes": "Synthetic linear regression with known coefficients. Educational fixture.",
+  "output_dir": "research/results/lr-synthetic-001",
+  "parameters": {
+    "learning_rate": 0.01,
+    "max_iter": 5000,
+    "n_features": 3,
+    "n_samples": 100,
+    "noise_std": 0.5
+  },
+  "seed": 42
+}

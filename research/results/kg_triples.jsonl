@@ -1,0 +1,6 @@
+{"object": "GreenBondA", "predicate": "issues", "subject": "SolarCo"}
+{"object": "SolarFarm", "predicate": "finances", "subject": "GreenBondA"}
+{"object": "Munster", "predicate": "located_in", "subject": "SolarFarm"}
+{"object": "WaterDisclosureRisk", "predicate": "has_risk", "subject": "SolarCo"}
+{"object": "SolarCo", "predicate": "audits", "subject": "AuditorOne"}
+{"object": "AvoidedEmissions", "predicate": "has_metric", "subject": "GreenBondA"}

@@ -1,0 +1,56 @@
+{
+  "artifacts": [
+    {
+      "path": "config.json",
+      "sha256": "daf7fa55c7ff28f6526422d261159e948ae2392c1c1abb506bf985f3d775adf3",
+      "size": 434
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "c42eb3ed9e414e04219a6a1c3679c82fedf3a98665946e560b41f37c971b0042",
+      "size": 218
+    },
+    {
+      "path": "predictions.csv",
+      "sha256": "e8aa53772316fb6a513af32355e46231ad932b499905d505844e7c91199241d7",
+      "size": 6491
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ae39afc8fc149e68741e367bb9e0bca9ca6127eaa8e544e965fa2331331e3ebb",
+      "size": 270
+    }
+  ],
+  "command": "scripts/run_experiment.py --config configs/logistic_regression.yaml",
+  "configuration": {
+    "dataset_id": "synthetic-binary-v1",
+    "experiment_id": "logr-synthetic-001",
+    "experiment_type": "logistic_regression",
+    "fixture": true,
+    "notes": "Synthetic binary classification. Educational fixture.",
+    "output_dir": "research/results/logr-synthetic-001",
+    "parameters": {
+      "learning_rate": 0.5,
+      "max_iter": 1000,
+      "n_features": 2,
+      "n_samples": 100,
+      "noise_std": 0.3
+    },
+    "seed": 42
+  },
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "end_time": "2026-07-13T13:52:13.409119+00:00",
+  "experiment_id": "logr-synthetic-001",
+  "experiment_type": "logistic_regression",
+  "fixture": true,
+  "git_commit": "b829cef9444d37f333d1bc6f5dc594e30a4b8421",
+  "git_dirty": true,
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "schema_version": 1,
+  "seed": 42,
+  "start_time": "2026-07-13T13:52:13.302675+00:00",
+  "success": true
+}

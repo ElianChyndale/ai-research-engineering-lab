@@ -1,0 +1,2 @@
+model,accuracy,f1,calibration_error,n_train,n_test
+logistic_regression,0.777778,0.75,0.13804,168,72

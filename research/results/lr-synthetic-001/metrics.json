@@ -1,0 +1,13 @@
+{
+  "gd_mse": 0.18469576713373936,
+  "gd_r2": 0.887581212280323,
+  "limitations": [
+    "Synthetic data only",
+    "No train/test split",
+    "Single seed \u2014 no variance estimate"
+  ],
+  "n_features": 3,
+  "n_samples": 100,
+  "ols_mse": 0.18469576713330554,
+  "ols_r2": 0.8875812122805872
+}

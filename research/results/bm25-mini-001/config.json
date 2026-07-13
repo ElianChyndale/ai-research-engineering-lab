@@ -1,0 +1,13 @@
+{
+  "dataset_id": "synthetic-ir-v1",
+  "experiment_id": "bm25-mini-001",
+  "experiment_type": "bm25",
+  "fixture": true,
+  "notes": "Miniature BM25 retrieval on synthetic corpus. Educational fixture.",
+  "output_dir": "research/results/bm25-mini-001",
+  "parameters": {
+    "b": 0.75,
+    "k1": 1.2
+  },
+  "seed": 42
+}
