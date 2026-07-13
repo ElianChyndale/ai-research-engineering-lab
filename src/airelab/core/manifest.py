@@ -83,4 +83,4 @@ class ExperimentManifest:
         # Atomic write: write to temp then rename
         tmp = path.with_suffix(".tmp")
         tmp.write_text(text, encoding="utf-8")
-        tmp.rename(path)
+        tmp.replace(path)

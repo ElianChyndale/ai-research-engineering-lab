@@ -58,7 +58,7 @@ def run_experiment(config: ExperimentConfig) -> Path:
         # Compute hashes for all artifacts
         manifest.finish(success=success)
         for artifact_file in sorted(run_dir.iterdir()):
-            if artifact_file.is_file() and artifact_file.suffix in (".json", ".csv"):
+            if artifact_file.is_file() and artifact_file.suffix in (".json", ".csv") and artifact_file.name != "manifest.json":
                 ah = ArtifactHash.from_file(artifact_file)
                 # Store relative path (filename only)
                 manifest.mark_artifact(ArtifactHash(

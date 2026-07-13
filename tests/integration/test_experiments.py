@@ -173,6 +173,46 @@ class TestExperiments:
         ])
         assert result.returncode == 1
 
+    def test_manifest_overwrite_on_rerun(self, tmp_path: Path) -> None:
+        """Running an experiment twice into the same directory must not fail."""
+        cfg = {
+            "experiment_id": "overwrite-test",
+            "experiment_type": "linear_regression",
+            "seed": 42,
+            "dataset_id": "synthetic",
+            "parameters": {"n_samples": 30, "n_features": 2},
+            "output_dir": str(tmp_path / "overwrite-test"),
+            "fixture": True,
+        }
+        cfg_path = tmp_path / "config.yaml"
+        cfg_path.write_text(
+            "\n".join(f"{k}: {json.dumps(v)}" for k, v in cfg.items()),
+            encoding="utf-8",
+        )
+
+        # First run
+        r1 = run_script([str(ROOT / "scripts" / "run_experiment.py"), "--config", str(cfg_path)])
+        assert r1.returncode == 0, r1.stderr
+
+        # Second run into same directory — must not raise FileExistsError
+        r2 = run_script([str(ROOT / "scripts" / "run_experiment.py"), "--config", str(cfg_path)])
+        assert r2.returncode == 0, r2.stderr
+
+        # Manifest is valid JSON and contains the latest run
+        manifest = json.loads(
+            (tmp_path / "overwrite-test" / "manifest.json").read_text(encoding="utf-8")
+        )
+        assert manifest["experiment_id"] == "overwrite-test"
+        assert manifest["success"] is True
+
+        # Artifact validation still passes
+        val = run_script([
+            str(ROOT / "scripts" / "validate_artifacts.py"),
+            "--run-dir", str(tmp_path / "overwrite-test"),
+        ])
+        assert val.returncode == 0, val.stderr
+        assert "VALID" in val.stdout
+
     def test_compare_runs(self, tmp_path: Path) -> None:
         cfg_base = {
             "experiment_type": "linear_regression",
