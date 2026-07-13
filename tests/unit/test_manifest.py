@@ -18,7 +18,7 @@ def _make_config(**overrides: object) -> ExperimentConfig:
         "experiment_type": ExperimentType.LINEAR_REGRESSION,
         "seed": 42,
         "dataset_id": "synthetic",
-        "parameters": {"lr": 0.01},
+        "parameters": {"learning_rate": 0.01},
         "output_dir": "research/results/test",
     }
     defaults.update(overrides)

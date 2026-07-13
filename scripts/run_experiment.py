@@ -50,6 +50,7 @@ def main() -> None:
     import airelab.foundations.bm25  # noqa: F401
     import airelab.foundations.linear_regression  # noqa: F401
     import airelab.foundations.logistic_regression  # noqa: F401
+    import airelab.foundations.pca  # noqa: F401
 
     run_dir = run_experiment(config)
     print(f"Experiment complete: {run_dir}")

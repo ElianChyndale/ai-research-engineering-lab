@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "path": "components.csv",
+      "sha256": "59ebdfc4add0b9708cd06c25bdfc25906cf30234c0a68c9b7ce94fa612912f2e",
+      "size": 232
+    },
+    {
+      "path": "config.json",
+      "sha256": "1735630af7318ee6849ea86027f583f5c8ffda780bcd16d5a212780348070d30",
+      "size": 379
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "48d489c769d9ece17ad722738de3cb1a869b5df78391cf17d300a8170081c34b",
+      "size": 414
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ae39afc8fc149e68741e367bb9e0bca9ca6127eaa8e544e965fa2331331e3ebb",
+      "size": 270
+    }
+  ],
+  "command": "scripts/run_experiment.py --config configs/pca.yaml",
+  "configuration": {
+    "dataset_id": "synthetic-pca-v1",
+    "experiment_id": "pca-synthetic-001",
+    "experiment_type": "pca",
+    "fixture": true,
+    "notes": "Synthetic PCA with known correlation structure. Educational fixture.",
+    "output_dir": "research/results/pca-synthetic-001",
+    "parameters": {
+      "n_components": 2,
+      "n_features": 5,
+      "n_samples": 100
+    },
+    "seed": 42
+  },
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "end_time": "2026-07-13T17:43:49.217345+00:00",
+  "experiment_id": "pca-synthetic-001",
+  "experiment_type": "pca",
+  "fixture": true,
+  "git_commit": "4abe2c45eb09a926740e738d7c6f6beab650f839",
+  "git_dirty": true,
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "schema_version": 1,
+  "seed": 42,
+  "start_time": "2026-07-13T17:43:49.118740+00:00",
+  "success": true
+}

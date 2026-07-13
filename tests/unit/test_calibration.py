@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 import numpy as np
 import pytest
 
@@ -74,3 +76,11 @@ class TestCalibration:
         sr = selective_risk(y_true, y_pred, y_prob, threshold=0.5)
         # Accepted: indices 0,2 (prob >= 0.5), predictions 1,1, true 1,1 → 0 errors
         assert sr == 0.0
+
+    def test_selective_risk_empty_accepted_returns_nan(self) -> None:
+        """When no predictions meet the threshold, selective risk is NaN (not evaluable)."""
+        y_true = np.array([1, 0])
+        y_pred = np.array([1, 0])
+        y_prob = np.array([0.1, 0.2])  # all below 0.5
+        sr = selective_risk(y_true, y_pred, y_prob, threshold=0.5)
+        assert math.isnan(sr)

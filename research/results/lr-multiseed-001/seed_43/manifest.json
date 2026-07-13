@@ -1,0 +1,56 @@
+{
+  "artifacts": [
+    {
+      "path": "config.json",
+      "sha256": "0cf22d217d64a460674348280dedb5182bacaa82211771ac27bd738723ce1105",
+      "size": 394
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "80a126b9a00d388d07fb668a188af9209281eab432c4a69eeb71516c21904ddd",
+      "size": 307
+    },
+    {
+      "path": "predictions.csv",
+      "sha256": "9b9ee0a75c5ad6fe5d9ea968f13a0c7f143ee2e8d2c934f515a66c03b4bfae9e",
+      "size": 11805
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ae39afc8fc149e68741e367bb9e0bca9ca6127eaa8e544e965fa2331331e3ebb",
+      "size": 270
+    }
+  ],
+  "command": "scripts/run_multi_seed.py --config configs/multi_seed_lr.yaml",
+  "configuration": {
+    "dataset_id": "synthetic-linear-v1",
+    "experiment_id": "lr-multiseed-001_seed43",
+    "experiment_type": "linear_regression",
+    "fixture": true,
+    "notes": "",
+    "output_dir": "research\\results\\lr-multiseed-001\\seed_43",
+    "parameters": {
+      "learning_rate": 0.01,
+      "max_iter": 5000,
+      "n_features": 3,
+      "n_samples": 100,
+      "noise_std": 0.5
+    },
+    "seed": 43
+  },
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "end_time": "2026-07-13T17:45:52.694845+00:00",
+  "experiment_id": "lr-multiseed-001_seed43",
+  "experiment_type": "linear_regression",
+  "fixture": true,
+  "git_commit": "4abe2c45eb09a926740e738d7c6f6beab650f839",
+  "git_dirty": true,
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "schema_version": 1,
+  "seed": 43,
+  "start_time": "2026-07-13T17:45:52.621706+00:00",
+  "success": true
+}

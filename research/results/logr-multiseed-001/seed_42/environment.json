@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "platform": "Windows-11-10.0.22631-SP0",
+  "python_major_minor": "3.13",
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]"
+}

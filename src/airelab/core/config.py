@@ -15,6 +15,22 @@ class ExperimentType(str, Enum):
     BM25 = "bm25"
 
 
+KNOWN_PARAMETERS: dict[ExperimentType, set[str]] = {
+    ExperimentType.LINEAR_REGRESSION: {
+        "n_samples", "n_features", "noise_std", "learning_rate", "max_iter",
+    },
+    ExperimentType.LOGISTIC_REGRESSION: {
+        "n_samples", "n_features", "learning_rate", "max_iter",
+    },
+    ExperimentType.PCA: {
+        "n_samples", "n_features", "n_components",
+    },
+    ExperimentType.BM25: {
+        "k1", "b",
+    },
+}
+
+
 @dataclass(frozen=True)
 class ExperimentConfig:
     experiment_id: str
@@ -45,6 +61,15 @@ class ExperimentConfig:
         # Path traversal check
         if ".." in self.output_dir:
             raise ValueError(f"Path traversal detected in output_dir: {self.output_dir!r}")
+        # Reject unknown parameters
+        known = KNOWN_PARAMETERS.get(self.experiment_type, set())
+        if known:
+            unknown = set(self.parameters.keys()) - known
+            if unknown:
+                raise ValueError(
+                    f"Unknown parameters for {self.experiment_type.value}: {sorted(unknown)}. "
+                    f"Valid parameters: {sorted(known)}"
+                )
 
     def to_dict(self) -> dict[str, Any]:
         return {

@@ -1,0 +1,14 @@
+{
+  "dataset_id": "synthetic-pca-v1",
+  "experiment_id": "pca-synthetic-001",
+  "experiment_type": "pca",
+  "fixture": true,
+  "notes": "Synthetic PCA with known correlation structure. Educational fixture.",
+  "output_dir": "research/results/pca-synthetic-001",
+  "parameters": {
+    "n_components": 2,
+    "n_features": 5,
+    "n_samples": 100
+  },
+  "seed": 42
+}

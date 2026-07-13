@@ -1,0 +1,55 @@
+{
+  "artifacts": [
+    {
+      "path": "config.json",
+      "sha256": "f34ebb14e0d964ad10ffd891fad5a227428c7617c6440e215ce24ab84f0a0477",
+      "size": 376
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "b91908cf6b28d26c5021274fba7147e9e5faeebf7c1b39cfe233137fe139e41c",
+      "size": 219
+    },
+    {
+      "path": "predictions.csv",
+      "sha256": "0c582628fc84e09ae6553d85069ad4788d66ee35a7eebbb2db97668c803d2565",
+      "size": 6497
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ae39afc8fc149e68741e367bb9e0bca9ca6127eaa8e544e965fa2331331e3ebb",
+      "size": 270
+    }
+  ],
+  "command": "scripts/run_multi_seed.py --config configs/multi_seed_logr.yaml",
+  "configuration": {
+    "dataset_id": "synthetic-binary-v1",
+    "experiment_id": "logr-multiseed-001_seed43",
+    "experiment_type": "logistic_regression",
+    "fixture": true,
+    "notes": "",
+    "output_dir": "research\\results\\logr-multiseed-001\\seed_43",
+    "parameters": {
+      "learning_rate": 0.5,
+      "max_iter": 1000,
+      "n_features": 2,
+      "n_samples": 100
+    },
+    "seed": 43
+  },
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "end_time": "2026-07-13T17:47:01.115505+00:00",
+  "experiment_id": "logr-multiseed-001_seed43",
+  "experiment_type": "logistic_regression",
+  "fixture": true,
+  "git_commit": "4abe2c45eb09a926740e738d7c6f6beab650f839",
+  "git_dirty": true,
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "schema_version": 1,
+  "seed": 43,
+  "start_time": "2026-07-13T17:47:01.036300+00:00",
+  "success": true
+}

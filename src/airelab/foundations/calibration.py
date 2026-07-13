@@ -107,6 +107,6 @@ def selective_risk(
     accepted = y_prob >= threshold
     n_accepted = int(np.sum(accepted))
     if n_accepted == 0:
-        return 0.0
+        return float("nan")
     errors = np.sum(y_true[accepted] != y_pred[accepted])
     return float(errors / n_accepted)

@@ -1,0 +1,99 @@
+{
+  "aggregated_metrics": {
+    "converged": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "std": 0.0
+    },
+    "n_test": {
+      "max": 30.0,
+      "mean": 30.0,
+      "median": 30.0,
+      "min": 30.0,
+      "std": 0.0
+    },
+    "n_train": {
+      "max": 70.0,
+      "mean": 70.0,
+      "median": 70.0,
+      "min": 70.0,
+      "std": 0.0
+    },
+    "split_seed": {
+      "max": 46.0,
+      "mean": 44.0,
+      "median": 44.0,
+      "min": 42.0,
+      "std": 1.5811388300841898
+    },
+    "test_accuracy": {
+      "max": 1.0,
+      "mean": 0.9733333333333334,
+      "median": 1.0,
+      "min": 0.9,
+      "std": 0.04346134936801765
+    },
+    "train_accuracy": {
+      "max": 1.0,
+      "mean": 0.9914285714285714,
+      "median": 0.9857142857142858,
+      "min": 0.9857142857142858,
+      "std": 0.007824607964359489
+    }
+  },
+  "experiment_id": "logr-repeated-001",
+  "experiment_type": "logistic_regression",
+  "n_splits": 5,
+  "per_split_metrics": [
+    {
+      "converged": false,
+      "n_test": 30,
+      "n_train": 70,
+      "split_seed": 42,
+      "test_accuracy": 1.0,
+      "train_accuracy": 1.0
+    },
+    {
+      "converged": false,
+      "n_test": 30,
+      "n_train": 70,
+      "split_seed": 43,
+      "test_accuracy": 1.0,
+      "train_accuracy": 0.9857142857142858
+    },
+    {
+      "converged": false,
+      "n_test": 30,
+      "n_train": 70,
+      "split_seed": 44,
+      "test_accuracy": 0.9666666666666667,
+      "train_accuracy": 1.0
+    },
+    {
+      "converged": false,
+      "n_test": 30,
+      "n_train": 70,
+      "split_seed": 45,
+      "test_accuracy": 1.0,
+      "train_accuracy": 0.9857142857142858
+    },
+    {
+      "converged": false,
+      "n_test": 30,
+      "n_train": 70,
+      "split_seed": 46,
+      "test_accuracy": 0.9,
+      "train_accuracy": 0.9857142857142858
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "test_size": 0.3
+}

@@ -1,0 +1,15 @@
+base_config:
+  experiment_id: lr-repeated-001
+  experiment_type: linear_regression
+  dataset_id: synthetic-linear-v1
+  parameters:
+    n_samples: 100
+    n_features: 3
+    noise_std: 0.5
+    learning_rate: 0.01
+    max_iter: 5000
+  fixture: true
+n_splits: 5
+test_size: 0.3
+seeds: [42, 43, 44, 45, 46]
+output_dir: research/results/lr-repeated-001

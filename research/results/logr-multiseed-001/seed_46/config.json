@@ -1,0 +1,15 @@
+{
+  "dataset_id": "synthetic-binary-v1",
+  "experiment_id": "logr-multiseed-001_seed46",
+  "experiment_type": "logistic_regression",
+  "fixture": true,
+  "notes": "",
+  "output_dir": "research\\results\\logr-multiseed-001\\seed_46",
+  "parameters": {
+    "learning_rate": 0.5,
+    "max_iter": 1000,
+    "n_features": 2,
+    "n_samples": 100
+  },
+  "seed": 46
+}

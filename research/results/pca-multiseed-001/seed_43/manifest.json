@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "path": "components.csv",
+      "sha256": "d4c78f5b4703bdd05167cd68a73171f66e245a2516938d6ea0d298ec275f04ad",
+      "size": 234
+    },
+    {
+      "path": "config.json",
+      "sha256": "c0071f118da12239d755674cde7f37aacf25712d039fa9ac232520a4a06b588f",
+      "size": 329
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "c2ef87e857adf92fa9bef10479eb52581b1a34ab43e5482e4ec1abc70efb5bee",
+      "size": 414
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ae39afc8fc149e68741e367bb9e0bca9ca6127eaa8e544e965fa2331331e3ebb",
+      "size": 270
+    }
+  ],
+  "command": "scripts/run_multi_seed.py --config configs/multi_seed_pca.yaml",
+  "configuration": {
+    "dataset_id": "synthetic-pca-v1",
+    "experiment_id": "pca-multiseed-001_seed43",
+    "experiment_type": "pca",
+    "fixture": true,
+    "notes": "",
+    "output_dir": "research\\results\\pca-multiseed-001\\seed_43",
+    "parameters": {
+      "n_components": 2,
+      "n_features": 5,
+      "n_samples": 100
+    },
+    "seed": 43
+  },
+  "dependencies": {
+    "numpy": "2.1.2",
+    "pyyaml": "not installed"
+  },
+  "end_time": "2026-07-13T17:50:14.597608+00:00",
+  "experiment_id": "pca-multiseed-001_seed43",
+  "experiment_type": "pca",
+  "fixture": true,
+  "git_commit": "4abe2c45eb09a926740e738d7c6f6beab650f839",
+  "git_dirty": true,
+  "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "schema_version": 1,
+  "seed": 43,
+  "start_time": "2026-07-13T17:50:14.531913+00:00",
+  "success": true
+}

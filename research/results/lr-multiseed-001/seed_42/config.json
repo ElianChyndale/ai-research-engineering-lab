@@ -1,0 +1,16 @@
+{
+  "dataset_id": "synthetic-linear-v1",
+  "experiment_id": "lr-multiseed-001_seed42",
+  "experiment_type": "linear_regression",
+  "fixture": true,
+  "notes": "",
+  "output_dir": "research\\results\\lr-multiseed-001\\seed_42",
+  "parameters": {
+    "learning_rate": 0.01,
+    "max_iter": 5000,
+    "n_features": 3,
+    "n_samples": 100,
+    "noise_std": 0.5
+  },
+  "seed": 42
+}

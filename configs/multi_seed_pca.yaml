@@ -1,0 +1,11 @@
+base_config:
+  experiment_id: pca-multiseed-001
+  experiment_type: pca
+  dataset_id: synthetic-pca-v1
+  parameters:
+    n_samples: 100
+    n_features: 5
+    n_components: 2
+  fixture: true
+seeds: [42, 43, 44, 45, 46]
+output_dir: research/results/pca-multiseed-001

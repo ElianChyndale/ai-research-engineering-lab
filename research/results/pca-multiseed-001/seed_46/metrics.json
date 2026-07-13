@@ -1,0 +1,16 @@
+{
+  "explained_variance_ratio": [
+    0.9781981155132754,
+    0.007498754216376113
+  ],
+  "limitations": [
+    "Synthetic data only",
+    "Eigendecomposition only (no randomized SVD)",
+    "Single seed \u2014 no variance estimate"
+  ],
+  "n_components": 2,
+  "n_features": 5,
+  "n_samples": 100,
+  "reconstruction_mse": 0.04793702021040273,
+  "total_explained_variance_ratio": 0.9856968697296515
+}

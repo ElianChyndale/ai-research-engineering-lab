@@ -1,0 +1,147 @@
+{
+  "aggregated_metrics": {
+    "explained_variance_ratio": [
+      0.9787818845868319,
+      0.006779493511790257
+    ],
+    "limitations": [
+      "Synthetic data only",
+      "Eigendecomposition only (no randomized SVD)",
+      "Single seed \u2014 no variance estimate"
+    ],
+    "n_components": {
+      "max": 2.0,
+      "mean": 2.0,
+      "median": 2.0,
+      "min": 2.0,
+      "std": 0.0
+    },
+    "n_features": {
+      "max": 5.0,
+      "mean": 5.0,
+      "median": 5.0,
+      "min": 5.0,
+      "std": 0.0
+    },
+    "n_samples": {
+      "max": 100.0,
+      "mean": 100.0,
+      "median": 100.0,
+      "min": 100.0,
+      "std": 0.0
+    },
+    "reconstruction_mse": {
+      "max": 0.05011471996691603,
+      "mean": 0.04706364922108062,
+      "median": 0.04793702021040273,
+      "min": 0.041768274279891486,
+      "std": 0.0031694432762657578
+    },
+    "total_explained_variance_ratio": {
+      "max": 0.9876658814819663,
+      "mean": 0.9865519879804853,
+      "median": 0.9865336727920698,
+      "min": 0.9855613780986222,
+      "std": 0.0009375972071756903
+    }
+  },
+  "experiment_id": "pca-multiseed-001",
+  "experiment_type": "pca",
+  "n_seeds": 5,
+  "per_seed_dirs": [
+    "research\\results\\pca-multiseed-001\\seed_42",
+    "research\\results\\pca-multiseed-001\\seed_43",
+    "research\\results\\pca-multiseed-001\\seed_44",
+    "research\\results\\pca-multiseed-001\\seed_45",
+    "research\\results\\pca-multiseed-001\\seed_46"
+  ],
+  "per_seed_metrics": [
+    {
+      "explained_variance_ratio": [
+        0.9787818845868319,
+        0.006779493511790257
+      ],
+      "limitations": [
+        "Synthetic data only",
+        "Eigendecomposition only (no randomized SVD)",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_components": 2,
+      "n_features": 5,
+      "n_samples": 100,
+      "reconstruction_mse": 0.04699780082713814,
+      "total_explained_variance_ratio": 0.9855613780986222
+    },
+    {
+      "explained_variance_ratio": [
+        0.9804783597878692,
+        0.006055313004200559
+      ],
+      "limitations": [
+        "Synthetic data only",
+        "Eigendecomposition only (no randomized SVD)",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_components": 2,
+      "n_features": 5,
+      "n_samples": 100,
+      "reconstruction_mse": 0.04850043082105472,
+      "total_explained_variance_ratio": 0.9865336727920698
+    },
+    {
+      "explained_variance_ratio": [
+        0.9820339138886707,
+        0.0052682239114457035
+      ],
+      "limitations": [
+        "Synthetic data only",
+        "Eigendecomposition only (no randomized SVD)",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_components": 2,
+      "n_features": 5,
+      "n_samples": 100,
+      "reconstruction_mse": 0.05011471996691603,
+      "total_explained_variance_ratio": 0.9873021378001163
+    },
+    {
+      "explained_variance_ratio": [
+        0.9810974787546803,
+        0.006568402727285944
+      ],
+      "limitations": [
+        "Synthetic data only",
+        "Eigendecomposition only (no randomized SVD)",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_components": 2,
+      "n_features": 5,
+      "n_samples": 100,
+      "reconstruction_mse": 0.041768274279891486,
+      "total_explained_variance_ratio": 0.9876658814819663
+    },
+    {
+      "explained_variance_ratio": [
+        0.9781981155132754,
+        0.007498754216376113
+      ],
+      "limitations": [
+        "Synthetic data only",
+        "Eigendecomposition only (no randomized SVD)",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_components": 2,
+      "n_features": 5,
+      "n_samples": 100,
+      "reconstruction_mse": 0.04793702021040273,
+      "total_explained_variance_ratio": 0.9856968697296515
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ]
+}

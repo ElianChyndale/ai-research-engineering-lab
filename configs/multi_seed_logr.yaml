@@ -1,0 +1,12 @@
+base_config:
+  experiment_id: logr-multiseed-001
+  experiment_type: logistic_regression
+  dataset_id: synthetic-binary-v1
+  parameters:
+    n_samples: 100
+    n_features: 2
+    learning_rate: 0.5
+    max_iter: 1000
+  fixture: true
+seeds: [42, 43, 44, 45, 46]
+output_dir: research/results/logr-multiseed-001

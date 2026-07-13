@@ -1,0 +1,93 @@
+{
+  "aggregated_metrics": {
+    "converged": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "std": 0.0
+    },
+    "fold": {
+      "max": 4.0,
+      "mean": 2.0,
+      "median": 2.0,
+      "min": 0.0,
+      "std": 1.5811388300841898
+    },
+    "n_test": {
+      "max": 20.0,
+      "mean": 20.0,
+      "median": 20.0,
+      "min": 20.0,
+      "std": 0.0
+    },
+    "n_train": {
+      "max": 80.0,
+      "mean": 80.0,
+      "median": 80.0,
+      "min": 80.0,
+      "std": 0.0
+    },
+    "test_accuracy": {
+      "max": 1.0,
+      "mean": 0.99,
+      "median": 1.0,
+      "min": 0.95,
+      "std": 0.022360679774997918
+    },
+    "train_accuracy": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "min": 1.0,
+      "std": 0.0
+    }
+  },
+  "experiment_id": "logr-cv-001",
+  "experiment_type": "logistic_regression",
+  "n_folds": 5,
+  "per_fold_metrics": [
+    {
+      "converged": false,
+      "fold": 0,
+      "n_test": 20,
+      "n_train": 80,
+      "test_accuracy": 1.0,
+      "train_accuracy": 1.0
+    },
+    {
+      "converged": false,
+      "fold": 1,
+      "n_test": 20,
+      "n_train": 80,
+      "test_accuracy": 1.0,
+      "train_accuracy": 1.0
+    },
+    {
+      "converged": false,
+      "fold": 2,
+      "n_test": 20,
+      "n_train": 80,
+      "test_accuracy": 0.95,
+      "train_accuracy": 1.0
+    },
+    {
+      "converged": false,
+      "fold": 3,
+      "n_test": 20,
+      "n_train": 80,
+      "test_accuracy": 1.0,
+      "train_accuracy": 1.0
+    },
+    {
+      "converged": false,
+      "fold": 4,
+      "n_test": 20,
+      "n_train": 80,
+      "test_accuracy": 1.0,
+      "train_accuracy": 1.0
+    }
+  ],
+  "seed": 42,
+  "shuffle": true
+}

@@ -1,0 +1,135 @@
+{
+  "aggregated_metrics": {
+    "gd_mse": {
+      "max": 0.27124706328543235,
+      "mean": 0.2337099246262322,
+      "median": 0.22496989219027128,
+      "min": 0.18469576713373936,
+      "std": 0.034821554226701114
+    },
+    "gd_r2": {
+      "max": 0.9448162631316239,
+      "mean": 0.8838875546323954,
+      "median": 0.8932080186727418,
+      "min": 0.7904047221051262,
+      "std": 0.05686315446950466
+    },
+    "limitations": [
+      "Synthetic data only",
+      "No train/test split",
+      "Single seed \u2014 no variance estimate"
+    ],
+    "n_features": {
+      "max": 3.0,
+      "mean": 3.0,
+      "median": 3.0,
+      "min": 3.0,
+      "std": 0.0
+    },
+    "n_samples": {
+      "max": 100.0,
+      "mean": 100.0,
+      "median": 100.0,
+      "min": 100.0,
+      "std": 0.0
+    },
+    "ols_mse": {
+      "max": 0.2712470632850397,
+      "mean": 0.23370992462574136,
+      "median": 0.224969892189496,
+      "min": 0.18469576713330554,
+      "std": 0.03482155422675591
+    },
+    "ols_r2": {
+      "max": 0.9448162631318141,
+      "mean": 0.8838875546326178,
+      "median": 0.8932080186729807,
+      "min": 0.7904047221054052,
+      "std": 0.05686315446946703
+    }
+  },
+  "experiment_id": "lr-multiseed-001",
+  "experiment_type": "linear_regression",
+  "n_seeds": 5,
+  "per_seed_dirs": [
+    "research\\results\\lr-multiseed-001\\seed_42",
+    "research\\results\\lr-multiseed-001\\seed_43",
+    "research\\results\\lr-multiseed-001\\seed_44",
+    "research\\results\\lr-multiseed-001\\seed_45",
+    "research\\results\\lr-multiseed-001\\seed_46"
+  ],
+  "per_seed_metrics": [
+    {
+      "gd_mse": 0.18469576713373936,
+      "gd_r2": 0.887581212280323,
+      "limitations": [
+        "Synthetic data only",
+        "No train/test split",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_features": 3,
+      "n_samples": 100,
+      "ols_mse": 0.18469576713330554,
+      "ols_r2": 0.8875812122805872
+    },
+    {
+      "gd_mse": 0.27124706328543235,
+      "gd_r2": 0.9034275569721623,
+      "limitations": [
+        "Synthetic data only",
+        "No train/test split",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_features": 3,
+      "n_samples": 100,
+      "ols_mse": 0.2712470632850397,
+      "ols_r2": 0.903427556972302
+    },
+    {
+      "gd_mse": 0.22496989219027128,
+      "gd_r2": 0.9448162631316239,
+      "limitations": [
+        "Synthetic data only",
+        "No train/test split",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_features": 3,
+      "n_samples": 100,
+      "ols_mse": 0.224969892189496,
+      "ols_r2": 0.9448162631318141
+    },
+    {
+      "gd_mse": 0.22435071549741037,
+      "gd_r2": 0.8932080186727418,
+      "limitations": [
+        "Synthetic data only",
+        "No train/test split",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_features": 3,
+      "n_samples": 100,
+      "ols_mse": 0.22435071549690844,
+      "ols_r2": 0.8932080186729807
+    },
+    {
+      "gd_mse": 0.2632861850243076,
+      "gd_r2": 0.7904047221051262,
+      "limitations": [
+        "Synthetic data only",
+        "No train/test split",
+        "Single seed \u2014 no variance estimate"
+      ],
+      "n_features": 3,
+      "n_samples": 100,
+      "ols_mse": 0.2632861850239571,
+      "ols_r2": 0.7904047221054052
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ]
+}

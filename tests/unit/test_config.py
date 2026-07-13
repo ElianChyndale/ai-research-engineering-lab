@@ -15,7 +15,7 @@ class TestExperimentConfig:
             experiment_type=ExperimentType.LINEAR_REGRESSION,
             seed=42,
             dataset_id="synthetic-linear",
-            parameters={"learning_rate": 0.01, "epochs": 100},
+            parameters={"learning_rate": 0.01, "max_iter": 100},
             output_dir="research/results/lr-001",
         )
         assert cfg.experiment_id == "lr-001"
@@ -62,7 +62,7 @@ class TestExperimentConfig:
                 experiment_type=ExperimentType.LINEAR_REGRESSION,
                 seed=42,
                 dataset_id="synthetic-linear",
-                parameters={"lr": float("nan")},
+                parameters={"learning_rate": float("nan")},
                 output_dir="research/results/test",
             )
 
@@ -73,7 +73,7 @@ class TestExperimentConfig:
                 experiment_type=ExperimentType.LINEAR_REGRESSION,
                 seed=42,
                 dataset_id="synthetic-linear",
-                parameters={"lr": float("inf")},
+                parameters={"learning_rate": float("inf")},
                 output_dir="research/results/test",
             )
 
@@ -110,13 +110,35 @@ class TestExperimentConfig:
         )
         assert cfg.fixture is True
 
+    def test_unknown_parameter_rejected(self) -> None:
+        with pytest.raises(ValueError, match="Unknown parameters"):
+            ExperimentConfig(
+                experiment_id="lr-001",
+                experiment_type=ExperimentType.LINEAR_REGRESSION,
+                seed=42,
+                dataset_id="synthetic-linear",
+                parameters={"unknown_param": 999},
+                output_dir="research/results/test",
+            )
+
+    def test_known_parameters_accepted(self) -> None:
+        cfg = ExperimentConfig(
+            experiment_id="lr-001",
+            experiment_type=ExperimentType.LINEAR_REGRESSION,
+            seed=42,
+            dataset_id="synthetic-linear",
+            parameters={"n_samples": 100, "n_features": 3, "noise_std": 0.5, "learning_rate": 0.01, "max_iter": 1000},
+            output_dir="research/results/test",
+        )
+        assert cfg.parameters["n_samples"] == 100
+
     def test_config_to_dict(self) -> None:
         cfg = ExperimentConfig(
             experiment_id="lr-001",
             experiment_type=ExperimentType.LINEAR_REGRESSION,
             seed=42,
             dataset_id="synthetic-linear",
-            parameters={"lr": 0.01},
+            parameters={"learning_rate": 0.01},
             output_dir="research/results/test",
         )
         d = cfg.to_dict()

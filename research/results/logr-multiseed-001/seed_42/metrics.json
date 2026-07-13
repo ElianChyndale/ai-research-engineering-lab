@@ -1,0 +1,11 @@
+{
+  "accuracy": 1.0,
+  "converged": false,
+  "limitations": [
+    "Synthetic data only",
+    "No train/test split",
+    "Single seed \u2014 no variance estimate"
+  ],
+  "n_features": 2,
+  "n_samples": 100
+}

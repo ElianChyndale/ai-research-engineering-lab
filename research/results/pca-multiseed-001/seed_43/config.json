@@ -1,0 +1,14 @@
+{
+  "dataset_id": "synthetic-pca-v1",
+  "experiment_id": "pca-multiseed-001_seed43",
+  "experiment_type": "pca",
+  "fixture": true,
+  "notes": "",
+  "output_dir": "research\\results\\pca-multiseed-001\\seed_43",
+  "parameters": {
+    "n_components": 2,
+    "n_features": 5,
+    "n_samples": 100
+  },
+  "seed": 43
+}
