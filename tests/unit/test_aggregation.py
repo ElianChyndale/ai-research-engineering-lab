@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 import pytest
 
 from airelab.core.aggregation import aggregate_floats, aggregate_metrics
@@ -29,11 +31,15 @@ class TestAggregateFloats:
         assert result["std"] > 0
 
     def test_known_values(self) -> None:
+        """Hand-computed aggregation: [1,2,3,4,5] → mean=3, std=sqrt(2.5)."""
         result = aggregate_floats([1.0, 2.0, 3.0, 4.0, 5.0])
         assert result["mean"] == 3.0
         assert result["median"] == 3.0
         assert result["min"] == 1.0
         assert result["max"] == 5.0
+        # sample std (ddof=1): sqrt(((1-3)^2+(2-3)^2+(3-3)^2+(4-3)^2+(5-3)^2)/4)
+        # = sqrt(10/4) = sqrt(2.5) ≈ 1.5811
+        assert result["std"] == pytest.approx(1.5811388300841898)
 
     def test_all_same_values(self) -> None:
         result = aggregate_floats([7.0, 7.0, 7.0])
@@ -41,6 +47,30 @@ class TestAggregateFloats:
         assert result["std"] == 0.0
         assert result["min"] == 7.0
         assert result["max"] == 7.0
+
+    def test_sample_std_ddof1(self) -> None:
+        """Verify sample std (ddof=1), not population std (ddof=0)."""
+        import statistics
+
+        values = [1.0, 2.0, 3.0, 4.0, 5.0]
+        result = aggregate_floats(values)
+        expected = statistics.stdev(values)  # ddof=1
+        assert result["std"] == pytest.approx(expected)
+        # Population std would be different
+        pop_std = statistics.pstdev(values)  # ddof=0
+        assert result["std"] != pytest.approx(pop_std)
+
+    def test_nan_rejected(self) -> None:
+        with pytest.raises(ValueError, match="finite"):
+            aggregate_floats([1.0, float("nan"), 3.0])
+
+    def test_inf_rejected(self) -> None:
+        with pytest.raises(ValueError, match="finite"):
+            aggregate_floats([1.0, float("inf")])
+
+    def test_neg_inf_rejected(self) -> None:
+        with pytest.raises(ValueError, match="finite"):
+            aggregate_floats([1.0, float("-inf")])
 
 
 @pytest.mark.unit
@@ -93,3 +123,38 @@ class TestAggregateMetrics:
         result = aggregate_metrics(metrics_list)
         # extra only in one dict — aggregate over that one value
         assert result["extra"]["mean"] == 1.0
+
+    def test_bool_not_treated_as_numeric(self) -> None:
+        """Booleans use all/any policy, not numeric aggregation."""
+        metrics_list = [
+            {"converged": True},
+            {"converged": False},
+            {"converged": True},
+        ]
+        result = aggregate_metrics(metrics_list)
+        assert result["converged"] == {"all_true": False, "any_true": True}
+
+    def test_bool_all_true(self) -> None:
+        result = aggregate_metrics([{"ok": True}, {"ok": True}])
+        assert result["ok"] == {"all_true": True, "any_true": True}
+
+    def test_bool_all_false(self) -> None:
+        result = aggregate_metrics([{"ok": False}, {"ok": False}])
+        assert result["ok"] == {"all_true": False, "any_true": False}
+
+    def test_nan_rejected(self) -> None:
+        with pytest.raises(ValueError, match="Non-finite"):
+            aggregate_metrics([{"mse": float("nan")}])
+
+    def test_inf_rejected(self) -> None:
+        with pytest.raises(ValueError, match="Non-finite"):
+            aggregate_metrics([{"mse": float("inf")}])
+
+    def test_list_value_first(self) -> None:
+        """List values use first-value policy, not numeric."""
+        metrics_list = [
+            {"limitations": ["a", "b"]},
+            {"limitations": ["a", "b"]},
+        ]
+        result = aggregate_metrics(metrics_list)
+        assert result["limitations"] == ["a", "b"]

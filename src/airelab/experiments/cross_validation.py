@@ -1,4 +1,9 @@
-"""K-fold cross-validation experiment execution."""
+"""K-fold cross-validation experiment execution.
+
+Generates data ONCE and partitions into k folds. Each fold serves as
+validation once while the remaining k-1 folds form the training set.
+Model state is recreated for every fold.
+"""
 
 from __future__ import annotations
 
@@ -12,6 +17,7 @@ import numpy as np
 from airelab.core.aggregation import aggregate_metrics
 from airelab.core.config import ExperimentConfig, ExperimentType
 from airelab.core.seeds import set_seed
+from airelab.core.validation import validate_summary
 from airelab.experiments.repeated_eval import (
     _generate_data,
     _evaluate_linear_regression,
@@ -63,8 +69,10 @@ def _make_folds(
 def run_cross_validation(config: CrossValidationConfig) -> dict[str, Any]:
     """Run k-fold cross-validation.
 
-    Generates data once, splits into k folds, trains on k-1, evaluates on 1.
+    Generates data ONCE, splits into k folds, trains on k-1, evaluates on 1.
+    Model state is recreated for every fold (no state leakage).
     Writes summary.json with per-fold and aggregated metrics.
+    Validates summary before writing.
     """
     experiment_type = config.base_config.experiment_type
     if experiment_type not in _EVALUATORS:
@@ -92,6 +100,7 @@ def run_cross_validation(config: CrossValidationConfig) -> dict[str, Any]:
         X_train, X_test = X[train_idx], X[test_idx]
         y_train, y_test = y[train_idx], y[test_idx]
 
+        # Fresh model instance for each fold — no state leakage
         metrics = evaluator(X_train, y_train, X_test, y_test, params)
         metrics["fold"] = fold_idx
         metrics["n_train"] = len(X_train)
@@ -103,6 +112,8 @@ def run_cross_validation(config: CrossValidationConfig) -> dict[str, Any]:
     summary = {
         "experiment_id": config.base_config.experiment_id,
         "experiment_type": experiment_type.value,
+        "dataset_id": config.base_config.dataset_id,
+        "fixture": config.base_config.fixture,
         "n_folds": config.n_folds,
         "shuffle": config.shuffle,
         "seed": config.seed,
@@ -110,9 +121,14 @@ def run_cross_validation(config: CrossValidationConfig) -> dict[str, Any]:
         "aggregated_metrics": aggregated,
     }
 
+    # Validate before writing — reject non-finite values
+    result = validate_summary(summary)
+    if not result.valid:
+        raise ValueError(f"Summary validation failed:\n{result}")
+
     summary_path = out_dir / "summary.json"
     summary_path.write_text(
-        json.dumps(summary, indent=2, sort_keys=True, default=str) + "\n",
+        json.dumps(summary, indent=2, sort_keys=True, default=str, allow_nan=False) + "\n",
         encoding="utf-8",
     )
 

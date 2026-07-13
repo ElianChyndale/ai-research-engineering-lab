@@ -1,4 +1,4 @@
-"""Artifact validation for experiment runs."""
+"""Artifact validation for experiment runs and summaries."""
 
 from __future__ import annotations
 
@@ -89,6 +89,53 @@ def validate_run(run_dir: Path) -> ValidationResult:
         errors.append("Fixture run cannot be labelled as reviewed")
 
     return ValidationResult(valid=not errors, errors=errors)
+
+
+def validate_summary(summary: dict[str, Any]) -> ValidationResult:
+    """Validate a summary dict (multi-seed, repeated-eval, CV, or comparison).
+
+    Checks:
+    - No NaN/Infinity in any nested numeric values
+    - JSON-serializable with allow_nan=False
+    - Identifies the path to any non-finite value
+    """
+    errors: list[str] = []
+    _check_finite_recursive(summary, errors, "summary")
+
+    # Verify strict JSON serialization (no NaN literals)
+    try:
+        json.dumps(summary, allow_nan=False)
+    except ValueError as exc:
+        errors.append(f"Summary not strict-JSON-serializable: {exc}")
+
+    return ValidationResult(valid=not errors, errors=errors)
+
+
+def validate_summary_file(path: Path) -> ValidationResult:
+    """Validate a summary.json file.
+
+    Checks:
+    - File exists and is valid JSON
+    - No NaN/Infinity in any nested numeric values
+    - Parses with strict JSON (no NaN literals)
+    """
+    if not path.exists():
+        return ValidationResult(valid=False, errors=[f"File not found: {path}"])
+
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return ValidationResult(valid=False, errors=[f"Cannot read {path}: {exc}"])
+
+    # Strict parse: reject NaN/Infinity literals
+    try:
+        data = json.loads(text, parse_constant=lambda x: (_ for _ in ()).throw(
+            ValueError(f"Non-finite JSON literal: {x}")
+        ))
+    except (json.JSONDecodeError, ValueError) as exc:
+        return ValidationResult(valid=False, errors=[f"Invalid JSON in {path}: {exc}"])
+
+    return validate_summary(data)
 
 
 def _check_finite_recursive(obj: Any, errors: list[str], path: str) -> None:

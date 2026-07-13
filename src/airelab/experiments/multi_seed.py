@@ -9,6 +9,7 @@ from typing import Any
 
 from airelab.core.aggregation import aggregate_metrics
 from airelab.core.config import ExperimentConfig
+from airelab.core.validation import validate_summary
 from airelab.experiments.runner import run_experiment
 
 
@@ -38,7 +39,7 @@ def run_multi_seed(config: MultiSeedConfig) -> dict[str, Any]:
     """Run an experiment with multiple seeds and aggregate results.
 
     Creates subdirectories seed_<n>/ for each seed, then writes summary.json
-    with aggregated metrics across all seeds.
+    with aggregated metrics across all seeds. Validates summary before writing.
     """
     out_dir = Path(config.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -70,6 +71,8 @@ def run_multi_seed(config: MultiSeedConfig) -> dict[str, Any]:
     summary = {
         "experiment_id": config.base_config.experiment_id,
         "experiment_type": config.base_config.experiment_type.value,
+        "dataset_id": config.base_config.dataset_id,
+        "fixture": config.base_config.fixture,
         "seeds": list(config.seeds),
         "n_seeds": len(config.seeds),
         "per_seed_dirs": per_seed_dirs,
@@ -77,9 +80,14 @@ def run_multi_seed(config: MultiSeedConfig) -> dict[str, Any]:
         "aggregated_metrics": aggregated,
     }
 
+    # Validate before writing — reject non-finite values
+    result = validate_summary(summary)
+    if not result.valid:
+        raise ValueError(f"Summary validation failed:\n{result}")
+
     summary_path = out_dir / "summary.json"
     summary_path.write_text(
-        json.dumps(summary, indent=2, sort_keys=True, default=str) + "\n",
+        json.dumps(summary, indent=2, sort_keys=True, default=str, allow_nan=False) + "\n",
         encoding="utf-8",
     )
 

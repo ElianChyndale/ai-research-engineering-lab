@@ -10,6 +10,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from airelab.core.config import ExperimentConfig
+from airelab.core.seeds import set_seed
 from airelab.experiments.registry import register
 
 
@@ -92,7 +93,7 @@ def run_pca(config: ExperimentConfig, run_dir: Path) -> dict[str, Any]:
 
     # Generate synthetic data with known correlation:
     # feature 0 drives most variance, features 1..n are noisy copies
-    np.random.seed(config.seed)
+    set_seed(config.seed)
     base = np.random.randn(n_samples)
     noise = np.random.randn(n_samples, n_features) * 0.3
     X = np.column_stack([base * 3.0] + [base * (2.0 - i * 0.3) for i in range(n_features - 1)]) + noise

@@ -77,6 +77,9 @@ This lab teaches the distinction between:
 - Educational implementations, not production-grade
 - Results are fixtures unless human-reviewed
 - No statistical significance claims from single experiments
+- Standard deviation uses sample std (ddof=1)
+- Repeated evaluation variance combines data-generation, split, and model-training variance (not pure split variance)
+- Cross-validation is for model assessment, not a final held-out test estimate
 
 ## Repository Structure
 

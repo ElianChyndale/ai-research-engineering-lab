@@ -1,4 +1,9 @@
-"""Repeated train/test evaluation with different data splits."""
+"""Repeated train/test evaluation with different data splits.
+
+Note: Each seed generates new synthetic data AND a new train/test split.
+The observed variance combines data-generation variance, split variance,
+and model-training variance. This is NOT pure split variance.
+"""
 
 from __future__ import annotations
 
@@ -13,6 +18,7 @@ import numpy as np
 from airelab.core.aggregation import aggregate_floats, aggregate_metrics
 from airelab.core.config import ExperimentConfig, ExperimentType
 from airelab.core.seeds import set_seed
+from airelab.core.validation import validate_summary
 
 
 @dataclass(frozen=True)
@@ -144,8 +150,12 @@ _EVALUATORS = {
 def run_repeated_eval(config: RepeatedEvalConfig) -> dict[str, Any]:
     """Run repeated train/test evaluation with different splits.
 
-    For each seed, generates data, splits into train/test, trains, evaluates.
+    For each seed, generates NEW synthetic data and splits into train/test.
+    The observed variance combines data-generation, split, and model-training
+    variance. This is NOT pure split variance.
+
     Writes summary.json with aggregated metrics across splits.
+    Validates summary before writing.
     """
     experiment_type = config.base_config.experiment_type
     if experiment_type not in _EVALUATORS:
@@ -160,8 +170,9 @@ def run_repeated_eval(config: RepeatedEvalConfig) -> dict[str, Any]:
     per_split_metrics: list[dict[str, Any]] = []
 
     for i, seed in enumerate(config.seeds[: config.n_splits]):
-        # Generate data with this seed
+        # Generate NEW data with this seed (data-generation variance)
         X, y = _generate_data(experiment_type, params, seed)
+        # Split with this seed (split variance)
         X_train, X_test, y_train, y_test = _train_test_split(X, y, config.test_size, seed)
 
         metrics = evaluator(X_train, y_train, X_test, y_test, params)
@@ -175,6 +186,8 @@ def run_repeated_eval(config: RepeatedEvalConfig) -> dict[str, Any]:
     summary = {
         "experiment_id": config.base_config.experiment_id,
         "experiment_type": experiment_type.value,
+        "dataset_id": config.base_config.dataset_id,
+        "fixture": config.base_config.fixture,
         "n_splits": min(config.n_splits, len(config.seeds)),
         "test_size": config.test_size,
         "seeds": list(config.seeds[: config.n_splits]),
@@ -182,9 +195,14 @@ def run_repeated_eval(config: RepeatedEvalConfig) -> dict[str, Any]:
         "aggregated_metrics": aggregated,
     }
 
+    # Validate before writing — reject non-finite values
+    result = validate_summary(summary)
+    if not result.valid:
+        raise ValueError(f"Summary validation failed:\n{result}")
+
     summary_path = out_dir / "summary.json"
     summary_path.write_text(
-        json.dumps(summary, indent=2, sort_keys=True, default=str) + "\n",
+        json.dumps(summary, indent=2, sort_keys=True, default=str, allow_nan=False) + "\n",
         encoding="utf-8",
     )
 

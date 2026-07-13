@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from airelab.core.validation import ValidationResult, validate_run
+from airelab.core.validation import ValidationResult, validate_run, validate_summary, validate_summary_file
 
 
 def _write_json(path: Path, data: object) -> None:
@@ -131,3 +131,75 @@ class TestValidation:
         r = ValidationResult(valid=False, errors=["error1", "error2"])
         assert "INVALID" in str(r)
         assert "error1" in str(r)
+
+
+@pytest.mark.unit
+class TestSummaryValidation:
+    def test_valid_summary_passes(self) -> None:
+        summary = {
+            "experiment_type": "linear_regression",
+            "aggregated_metrics": {
+                "mse": {"mean": 0.5, "std": 0.1, "median": 0.5, "min": 0.4, "max": 0.6}
+            },
+        }
+        result = validate_summary(summary)
+        assert result.valid, str(result)
+
+    def test_nested_nan_fails(self) -> None:
+        summary = {
+            "aggregated_metrics": {
+                "mse": {"mean": float("nan"), "std": 0.1}
+            }
+        }
+        result = validate_summary(summary)
+        assert not result.valid
+        assert any("Non-finite" in e for e in result.errors)
+
+    def test_nested_inf_fails(self) -> None:
+        summary = {
+            "per_fold_metrics": [
+                {"test_mse": float("inf")}
+            ]
+        }
+        result = validate_summary(summary)
+        assert not result.valid
+        assert any("Non-finite" in e for e in result.errors)
+
+    def test_deeply_nested_nan_fails(self) -> None:
+        summary = {
+            "level1": {
+                "level2": {
+                    "level3": [float("nan")]
+                }
+            }
+        }
+        result = validate_summary(summary)
+        assert not result.valid
+        assert any("level1.level2.level3[0]" in e for e in result.errors)
+
+    def test_strict_json_serialization(self) -> None:
+        """Valid summary must serialize with allow_nan=False."""
+        summary = {"mse": {"mean": 0.5, "std": 0.1}}
+        result = validate_summary(summary)
+        assert result.valid
+        # Verify it actually serializes strictly
+        json.dumps(summary, allow_nan=False)  # should not raise
+
+    def test_summary_file_valid(self, tmp_path: Path) -> None:
+        path = tmp_path / "summary.json"
+        summary = {"mse": {"mean": 0.5}}
+        path.write_text(json.dumps(summary), encoding="utf-8")
+        result = validate_summary_file(path)
+        assert result.valid, str(result)
+
+    def test_summary_file_nan_literal_fails(self, tmp_path: Path) -> None:
+        """A file containing JSON NaN literal must fail."""
+        path = tmp_path / "summary.json"
+        path.write_text('{"mse": NaN}', encoding="utf-8")
+        result = validate_summary_file(path)
+        assert not result.valid
+        assert any("Invalid JSON" in e or "Non-finite" in e for e in result.errors)
+
+    def test_summary_file_missing_fails(self, tmp_path: Path) -> None:
+        result = validate_summary_file(tmp_path / "nonexistent.json")
+        assert not result.valid

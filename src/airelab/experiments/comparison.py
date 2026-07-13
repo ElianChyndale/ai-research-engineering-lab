@@ -1,4 +1,4 @@
-"""Compare two experiment runs."""
+"""Compare two experiment runs and experiment families."""
 
 from __future__ import annotations
 
@@ -68,14 +68,53 @@ def _dict_diff(a: dict[str, Any], b: dict[str, Any]) -> dict[str, dict[str, Any]
     return diff
 
 
+def _check_comparability(
+    summary_a: dict[str, Any],
+    summary_b: dict[str, Any],
+) -> tuple[bool, list[str]]:
+    """Determine whether two experiment families are comparable.
+
+    Returns (comparable, reasons) where reasons explains why not.
+    """
+    reasons: list[str] = []
+
+    type_a = summary_a.get("experiment_type")
+    type_b = summary_b.get("experiment_type")
+    if type_a != type_b:
+        reasons.append(f"experiment types differ: {type_a!r} vs {type_b!r}")
+
+    dataset_a = summary_a.get("dataset_id")
+    dataset_b = summary_b.get("dataset_id")
+    if dataset_a is not None and dataset_b is not None and dataset_a != dataset_b:
+        reasons.append(f"datasets differ: {dataset_a!r} vs {dataset_b!r}")
+
+    # Check protocol: n_folds (CV), n_splits/test_size (repeated eval)
+    for key in ("n_folds", "n_splits", "test_size", "shuffle"):
+        val_a = summary_a.get(key)
+        val_b = summary_b.get(key)
+        if val_a is not None and val_b is not None and val_a != val_b:
+            reasons.append(f"protocol differs on {key}: {val_a} vs {val_b}")
+
+    # Check fixture status
+    fixture_a = summary_a.get("fixture")
+    fixture_b = summary_b.get("fixture")
+    if fixture_a is not None and fixture_b is not None and fixture_a != fixture_b:
+        reasons.append(f"fixture status differs: {fixture_a} vs {fixture_b}")
+
+    comparable = len(reasons) == 0
+    return comparable, reasons
+
+
 def compare_families(dir_a: Path, dir_b: Path) -> dict[str, Any]:
     """Compare two multi-seed experiment family directories.
 
     Each directory must contain summary.json with aggregated_metrics.
-    Returns comparison of aggregated metrics across families.
+    Returns comparison with explicit comparability decision.
     """
     summary_a = _load_json(dir_a / "summary.json")
     summary_b = _load_json(dir_b / "summary.json")
+
+    comparable, reasons = _check_comparability(summary_a, summary_b)
 
     agg_a = summary_a.get("aggregated_metrics", {})
     agg_b = summary_b.get("aggregated_metrics", {})
@@ -94,18 +133,19 @@ def compare_families(dir_a: Path, dir_b: Path) -> dict[str, Any]:
             mean_b = val_b["mean"]
             range_a = (val_a.get("min", mean_a), val_a.get("max", mean_a))
             range_b = (val_b.get("min", mean_b), val_b.get("max", mean_b))
-            # Ranges overlap if max of one >= min of the other
             ranges_overlap = range_a[1] >= range_b[0] and range_b[1] >= range_a[0]
-            metric_comparisons[key] = {
+            entry: dict[str, Any] = {
                 "mean_a": mean_a,
                 "mean_b": mean_b,
-                "mean_diff": mean_a - mean_b,
                 "std_a": val_a.get("std", 0.0),
                 "std_b": val_b.get("std", 0.0),
                 "range_a": list(range_a),
                 "range_b": list(range_b),
                 "ranges_overlap": ranges_overlap,
             }
+            if comparable:
+                entry["mean_diff"] = mean_a - mean_b
+            metric_comparisons[key] = entry
         else:
             metric_comparisons[key] = {
                 "value_a": val_a,
@@ -113,12 +153,24 @@ def compare_families(dir_a: Path, dir_b: Path) -> dict[str, Any]:
                 "equal": val_a == val_b,
             }
 
-    return {
+    result: dict[str, Any] = {
         "family_a": str(dir_a),
         "family_b": str(dir_b),
+        "comparable": comparable,
+        "reasons": reasons,
         "experiment_type_a": summary_a.get("experiment_type"),
         "experiment_type_b": summary_b.get("experiment_type"),
+        "dataset_id_a": summary_a.get("dataset_id"),
+        "dataset_id_b": summary_b.get("dataset_id"),
         "seeds_a": summary_a.get("seeds", []),
         "seeds_b": summary_b.get("seeds", []),
         "metric_comparisons": metric_comparisons,
     }
+
+    if not comparable:
+        result["conclusion"] = (
+            "No performance conclusion permitted. "
+            "Families are not comparable: " + "; ".join(reasons)
+        )
+
+    return result
