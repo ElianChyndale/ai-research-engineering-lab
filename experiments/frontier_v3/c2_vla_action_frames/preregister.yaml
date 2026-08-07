@@ -1,0 +1,49 @@
+# C2 PRE-REGISTRATION — VLA Embodiment / Action-Frame Entanglement
+# Versioned BEFORE any analysis.
+
+experiment: frontier_v3_c2
+stage: STAGE_0_FEASIBILITY_AUDIT  # 25% budget: audit + feasibility, no huge download
+
+SCIENTIFIC_CLAIM: >
+  Physical robustness failure in VLA policies is partially caused by the
+  semantic task representation being entangled with camera coordinates, robot
+  embodiment, end-effector coordinates, and/or the action tokenizer.
+
+MECHANISTIC_HYPOTHESIS: >
+  A policy pi is only approximately equivariant: D_eq = dist(T_action pi(o),
+  pi(T_obs o)) grows under semantic-preserving SE(3) transforms, and large
+  D_eq predicts task failure.
+
+STRONGEST_BASELINE: >
+  A modern SE(3)-equivariant / cross-embodiment / action-canonicalized policy
+  (owner audit). If the strongest VLA robustness baseline is already equivariant,
+  the hypothesis is subsumed.
+
+PRIMARY_METRIC: D_eq (equivariance defect) + correlation(D_eq, task failure)
+
+SECONDARY_METRICS:
+  - task success under transforms
+  - action error
+  - failure under appearance-only vs frame-only perturbation
+
+NEGATIVE_CONTROLS:
+  - NC1 appearance perturbation, same frames
+  - NC2 camera perturb corrected only in rendering
+  - NC3 task-semantic change without coordinate transform
+  - NC4 small transform within training support
+
+SUCCESS_CONDITION (verdict A): >
+  G1 robustness failure reproduces; G2 equivariance defect rises under
+  semantic-preserving transforms; G3 defect predicts failure; G4 across
+  multiple magnitudes; G5 frame/canonicalization intervention selectively
+  rescues; G6 generic augmentation does not explain gain; G7 strong recent VLA
+  robustness baseline does not already solve it.
+
+KILL_CONDITION: >
+  KILL if modern baseline already equivariant; no defect-failure relation;
+  canonical correction doesn't rescue; generic augmentation equal; effect
+  model-specific; OR failure is merely perception degradation.
+
+COMPUTE_BUDGET: "25%; mostly owner audit + feasibility + lightweight reproduction ONLY if feasible"
+SEEDS: {tuning: [], pilot: [], confirmatory: []}
+RESULTS_DIR: experiments/frontier_v3/c2_vla_action_frames/results

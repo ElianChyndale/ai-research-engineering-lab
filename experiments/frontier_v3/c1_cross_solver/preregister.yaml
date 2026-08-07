@@ -1,0 +1,58 @@
+# C1 PRE-REGISTRATION — Cross-Solver Physical-Law Disentanglement
+# Versioned BEFORE any analysis. Do NOT edit thresholds after results.
+
+experiment: frontier_v3_c1
+stage: EXPLORATORY_SCREENING
+created_git: "after 0c528d7"
+
+SCIENTIFIC_CLAIM: >
+  A scientific surrogate/operator trained on simulated physical systems may
+  encode numerical-solver identity/artifacts (z_solver) rather than only the
+  continuum law (z_physics), so changing the numerical generator while holding
+  the PDE distribution fixed degrades representation and prediction.
+
+MECHANISTIC_HYPOTHESIS: >
+  z(x) ≈ z_physics + z_solver + z_interaction. Solver artifacts become
+  predictive shortcuts because ordinary datasets confound physics with the
+  numerical generator. Survives only if: unseen-solver performance drops AND
+  solver identity is encoded AND encoding is associated with the failure AND a
+  targeted solver-nuisance intervention selectively improves transfer.
+
+STRONGEST_BASELINE: >
+  A discretization-aware operator learner that is (approximately)
+  cross-solver invariant (e.g. an FNO with consistent grid handling, or a
+  DeepONet trained on multiple solvers with matched physical cases).
+
+PRIMARY_METRIC: M3 = OOD_solver_gap = Error_unseen_solver - Error_ID
+
+SECONDARY_METRICS:
+  - M1: ID prediction error
+  - M2: unseen-solver prediction error
+  - M4: solver-probe accuracy (linear probe on latent)
+  - M5: physics-parameter probe accuracy
+  - M6: correlation(solver-probe strength, unseen-solver error) across settings
+
+NEGATIVE_CONTROLS:
+  - NC1: change mesh resolution, same solver family
+  - NC2: change solver label without changing data (no-op)
+  - NC3: probe solver identity from raw physical params alone
+  - NC4: train on sufficiently converged solutions
+
+SUCCESS_CONDITION (verdict A): >
+  G1 OOD-solver error materially > ID error; G2 across >=2 solver transfer
+  pairs; G3 solver identity decodable; G4 persists after resolution/numerical
+  accuracy control; G5 solver signal tracks transfer failure; G6 paired
+  solver-consistency intervention reduces BOTH probe signal AND unseen-solver
+  error without ID degradation; G7 strong discretization-aware baseline does
+  not already eliminate the effect.
+
+KILL_CONDITION (verdict C or D): >
+  KILL if: modern baseline already cross-solver invariant; unseen-solver gap
+  negligible; solver identity not encoded; identity encoded but unrelated to
+  failure; effect disappears after convergence control; intervention doesn't
+  selectively help; OR generic augmentation performs equally well.
+
+COMPUTE_BUDGET: "CPU/GPU consumer-scale; 1D PDE; small operator learner; 5 pilot seeds"
+SEEDS: {tuning: [0,1], pilot: [100,101,102,103,104], confirmatory: []}
+TUNING_POLICY: "pre-defined grid, separate tuning seeds, freeze before pilot"
+RESULTS_DIR: experiments/frontier_v3/c1_cross_solver/results

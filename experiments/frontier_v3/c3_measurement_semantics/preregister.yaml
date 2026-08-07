@@ -1,0 +1,57 @@
+# C3 PRE-REGISTRATION — Scientific Measurement-Semantic Failure
+# Versioned BEFORE any analysis.
+
+experiment: frontier_v3_c3
+stage: EXPLORATORY_SCREENING
+
+SCIENTIFIC_CLAIM: >
+  Frontier multimodal/scientific models may rely on surface semantic agreement
+  while failing to represent typed scientific measurement relations (quantity,
+  axis, unit, scale, condition, uncertainty, legend, equation, provenance).
+  Controlled perturbations to measurement semantics cause disproportionately
+  large reasoning failures relative to matched surface perturbations.
+
+MECHANISTIC_HYPOTHESIS: >
+  Models encode semantic similarity better than typed measurement structure.
+  Therefore Delta_struct (original - semantic-perturb) >> Delta_surface
+  (original - matched-surface-perturb).
+
+STRONGEST_BASELINE: >
+  Prompt-only / chain-of-thought baseline (does CoT already fix it?) plus the
+  strongest accessible frontier multimodal model on the ORIGINAL examples.
+
+PRIMARY_METRIC: Delta_mechanism = Delta_struct - Delta_surface
+  (aggregate percentage points)
+
+SECONDARY_METRICS:
+  - M1 original accuracy
+  - M2 semantic-perturbation accuracy
+  - M3 matched-surface accuracy
+  - violation localization accuracy
+  - structured field extraction accuracy
+  - calibration if confidence available
+
+NEGATIVE_CONTROLS:
+  - NC1 plain OCR/transcription (if model can't read figure, mechanism unsupported)
+  - NC2 text-only equivalent
+  - NC3 simple unit arithmetic
+  - NC4 same visual transform, no scientific consequence
+  - NC5 human/template oracle
+
+SUCCESS_CONDITION (verdict A): >
+  G1 strong models perform well on originals (task meaningful); G2 semantic
+  perturbations degrade substantially more than surface controls; G3 effect
+  across >=3 transformation families; G4 across >=2-3 domains; G5 not OCR;
+  G6 typed graph/constraint intervention selectively improves; G7 ordinary
+  prompting doesn't match. Practical gate: Delta_mechanism >= 15 pp aggregate
+  AND consistent direction across >=3 families.
+
+KILL_CONDITION: >
+  KILL if semantic no harder than matched controls; failures dominated by
+  OCR/vision; effect in only one artificial transform; typed constraints don't
+  help; CoT/prompt-only solves equally; OR strong existing method already
+  handles it.
+
+COMPUTE_BUDGET: "low-compute; 100-150 synthetic examples; paired deterministic eval; bootstrap CIs"
+SEEDS: {tuning: [], pilot: [0,1,2,3,4], confirmatory: []}
+RESULTS_DIR: experiments/frontier_v3/c3_measurement_semantics/results
