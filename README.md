@@ -16,9 +16,40 @@ python -m pytest -q
 
 | Module               | Description                                                  |
 | -------------------- | ------------------------------------------------------------ |
-| `airelab.core`       | Config, seeds, artifacts, manifest, validation, aggregation  |
+| `airelab.core`       | Config, seeds, artifacts, manifest, validation, aggregation, **statistics, provenance, lifecycle, kill_gates, leakage** |
 | `airelab.foundations`| Linear regression, logistic regression, PCA, BM25, calibration |
 | `airelab.experiments`| Registry, runner, comparison, multi-seed, repeated eval, cross-validation |
+| `airelab.cheap_kill` | **ResearchHypothesis / ExperimentSpec / KillTestReport schemas (direction-agnostic cheap-kill interface)** |
+| `airelab.torch`      | **PyTorch research core: reproducibility, checkpoint, metrics, gradient_check, trainer** |
+
+## Research Harness (for cheap-kill falsification experiments)
+
+Added 2026-08-07 to make future Top-3 falsification experiments 2-5x faster and
+more reproducible. Direction-agnostic (no DFL/belief/finance/graph anchoring):
+
+- `airelab.core.statistics` — bootstrap CI, paired differences (seed-aligned),
+  Cohen's d, practical effect-margin (`beats_by_margin`).
+- `airelab.core.provenance` — git head / dirty / config hash / python / deps /
+  timestamp seal (the "IPW moment" provenance discipline).
+- `airelab.core.lifecycle` — `FrozenConfig` (EXPLORATORY→FROZEN→CONFIRMATORY→
+  INVALIDATED); detects config modification before confirmatory promotion.
+- `airelab.core.kill_gates` — pre-registered PASS/WARNING/FAIL/KILL gates saved
+  before analysis.
+- `airelab.core.leakage` — learner-view vs evaluator-view separation (structural
+  AST scan + runtime guard).
+- `airelab.cheap_kill.schemas` — `ResearchHypothesis`, `ExperimentSpec`,
+  `KillTestReport` (fill in per candidate, instantiate in <1 day).
+- `airelab.torch` — deterministic seed control, device handling, checkpointing,
+  early stopping, gradient-norm logging, finite-difference gradient check,
+  ECE calibration, a shallow trainer, and seed-disjointness utilities.
+
+`reproductions/template/` forces the pre-coding disciplines (paper claim, owner,
+IPW moment, strongest baseline, kill condition) before any code.
+
+## Reproductions
+
+- `reproductions/template/` — the reproduction skeleton (paper_claim, baseline_map,
+  config, run, analyse, report).
 
 ## Running Experiments
 

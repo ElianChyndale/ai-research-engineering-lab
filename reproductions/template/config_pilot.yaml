@@ -1,0 +1,17 @@
+# Reproduction pilot config (pre-registered)
+# Freeze this BEFORE running; do not tune after results.
+
+experiment: template_reproduction
+stage: EXPLORATORY
+
+seed_ranges:
+  tuning: [0, 1, 2]          # do not overlap pilot/confirmatory
+  pilot: [100, 101, 102]
+  confirmatory: [1000, 1001, 1002]
+
+# primary metric + pre-registered effect margin
+primary_metric: ""
+practical_effect_margin: 0.25
+
+# scientific parameters (fill)
+parameters: {}
