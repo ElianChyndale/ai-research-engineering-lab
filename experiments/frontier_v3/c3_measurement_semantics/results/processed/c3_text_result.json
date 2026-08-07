@@ -1,0 +1,235 @@
+{
+  "orig_acc": 0.75,
+  "sem_acc": 0.75,
+  "surf_acc": 1.0,
+  "delta_struct_pp": 0.0,
+  "delta_surface_pp": -25.0,
+  "delta_mechanism_pp": 25.0,
+  "verdict": "A",
+  "per_example": [
+    {
+      "example": "kin",
+      "variant": "orig",
+      "perturb": null,
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "kin",
+      "variant": "s_unit_mismatch",
+      "perturb": "unit_mismatch",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: Y-axis labeled km/s but numeric values correspond to m/s."
+    },
+    {
+      "example": "kin",
+      "variant": "s_axis_swap",
+      "perturb": "axis_swap",
+      "expected": "INCONSISTENT",
+      "model_verdict": null,
+      "raw": ""
+    },
+    {
+      "example": "kin",
+      "variant": "s_legend_wrong",
+      "perturb": "legend_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: The legend label \u201cvelocity_wrong\u201d is nonstandard; it should be \u201cve"
+    },
+    {
+      "example": "kin",
+      "variant": "s_scale_wrong",
+      "perturb": "scale_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: y-axis labeled log scale but data appear linear."
+    },
+    {
+      "example": "kin",
+      "variant": "surf_surface_synonym",
+      "perturb": "surface_synonym",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "kin",
+      "variant": "surf_surface_rephrase",
+      "perturb": "surface_rephrase",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "elec",
+      "variant": "orig",
+      "perturb": null,
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "elec",
+      "variant": "s_unit_mismatch",
+      "perturb": "unit_mismatch",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: y-axis unit is nonstandard \u201cA_wrong\u201d instead of A."
+    },
+    {
+      "example": "elec",
+      "variant": "s_axis_swap",
+      "perturb": "axis_swap",
+      "expected": "INCONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "elec",
+      "variant": "s_legend_wrong",
+      "perturb": "legend_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: legend label says \u201ccurrent_wrong\u201d instead of a proper label like \u201c"
+    },
+    {
+      "example": "elec",
+      "variant": "s_scale_wrong",
+      "perturb": "scale_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: y-axis labeled log scale but values and data appear linear."
+    },
+    {
+      "example": "elec",
+      "variant": "surf_surface_synonym",
+      "perturb": "surface_synonym",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "elec",
+      "variant": "surf_surface_rephrase",
+      "perturb": "surface_rephrase",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "therm",
+      "variant": "orig",
+      "perturb": null,
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "therm",
+      "variant": "s_unit_mismatch",
+      "perturb": "unit_mismatch",
+      "expected": "INCONSISTENT",
+      "model_verdict": null,
+      "raw": ""
+    },
+    {
+      "example": "therm",
+      "variant": "s_axis_swap",
+      "perturb": "axis_swap",
+      "expected": "INCONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "therm",
+      "variant": "s_legend_wrong",
+      "perturb": "legend_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: The legend label says \u201cpressure_wrong\u201d instead of a proper pressur"
+    },
+    {
+      "example": "therm",
+      "variant": "s_scale_wrong",
+      "perturb": "scale_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: y-axis labeled log scale but data appear linear."
+    },
+    {
+      "example": "therm",
+      "variant": "surf_surface_synonym",
+      "perturb": "surface_synonym",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "therm",
+      "variant": "surf_surface_rephrase",
+      "perturb": "surface_rephrase",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "mat",
+      "variant": "orig",
+      "perturb": null,
+      "expected": "CONSISTENT",
+      "model_verdict": null,
+      "raw": ""
+    },
+    {
+      "example": "mat",
+      "variant": "s_unit_mismatch",
+      "perturb": "unit_mismatch",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: axis labeled kPa but numeric values correspond to Pa."
+    },
+    {
+      "example": "mat",
+      "variant": "s_axis_swap",
+      "perturb": "axis_swap",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: The strain axis has a missing unit; strain is dimensionless."
+    },
+    {
+      "example": "mat",
+      "variant": "s_legend_wrong",
+      "perturb": "legend_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: legend label reads 'stress_wrong' instead of 'stress'."
+    },
+    {
+      "example": "mat",
+      "variant": "s_scale_wrong",
+      "perturb": "scale_wrong",
+      "expected": "INCONSISTENT",
+      "model_verdict": "INCONSISTENT",
+      "raw": "INCONSISTENT: y-axis labeled log scale but shows linear data with a zero origin."
+    },
+    {
+      "example": "mat",
+      "variant": "surf_surface_synonym",
+      "perturb": "surface_synonym",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    },
+    {
+      "example": "mat",
+      "variant": "surf_surface_rephrase",
+      "perturb": "surface_rephrase",
+      "expected": "CONSISTENT",
+      "model_verdict": "CONSISTENT",
+      "raw": "CONSISTENT"
+    }
+  ]
+}
